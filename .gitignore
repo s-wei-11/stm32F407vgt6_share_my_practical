@@ -1,0 +1,32 @@
+# 1. 编译输出文件夹（体积巨大，绝对不传）
+build/
+debug/
+release/
+bin/
+obj/
+
+# 2. VS Code 个人配置文件（避免把你的绝对路径传给别人）
+.vscode/
+.history/
+*.log
+
+# 3. CMake 产生的中间过程文件（核心避坑点）
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CMakePresets.json.user
+
+# 4. 如果是从 Keil 移植过来的，屏蔽 Keil 的残留
+MDK-ARM/
+Listings/
+Objects/
+*.uvoptx
+*.uvprojx
+*.uvguix.*
+
+# 5. 操作系统产生的杂碎
+.DS_Store
+Thumbs.db
