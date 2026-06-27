@@ -45,13 +45,17 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
-    ${USER_SOURCES}
+    Core/Src/${USER_SOURCES}
+
+    Core/sw_code/tft.c
+    Core/sw_code/font.h
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-   Src
+   Core/Src
+   Core/sw_code
 )
 
 # Add project symbols (macros)
@@ -67,4 +71,13 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
 
     # Add user defined libraries
+)
+
+
+
+# 只要加这一段就行，名字自动匹配你的工程名
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND arm-none-eabi-objcopy -O ihex ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.hex
+    COMMAND arm-none-eabi-objcopy -O binary ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.bin
+    COMMENT "正在生成烧录用的 HEX 和 BIN 文件..."
 )
